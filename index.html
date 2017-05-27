@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="zoom/jq.js"></script>
+	<script src="zoom/zoom.js"></script>
+	<script src="zoom/zoom_function.js"></script>
+	<style>
+		/*//放大镜样式 start*/
+		.magnify { position: relative;}
+
+		/*Lets create the magnifying glass*/
+		.large {
+		  width: 250px; height:250px;
+		  position: absolute;
+		  border-radius: 100%;
+		  z-index: 2000;
+		  /*Multiple box shadows to achieve the glass effect*/
+		  box-shadow: 0 0 0 2px rgba(250, 250, 250, 0.5),
+		  0 0 2px rgba(0, 0, 0, 0.25),
+		  inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+
+		  /*hide the glass by default*/
+		  display: none;
+		}
+
+		/*To solve overlap bug at the edges during magnification*/
+		/*//放大镜样式*/
+		*{
+			margin:0;padding:0;
+		}
+		body{
+			background: #e1e1e1;
+		}
+		img{
+			max-height: 100%;
+			max-width: 100%;
+		}
+		.htmleaf-content{
+			width: 600px;
+			margin:100px auto;
+		}
+		.small { 
+			display: block;
+			max-width: 600px;
+    		max-height: 420px;
+		 }
+		.img_box{
+			margin-top:20px;
+		}
+		.clearfix:after{
+			display: table;
+			content: "";
+			clear: both;
+		}
+		.img_box .table-row{
+			float: left;
+			
+		}
+		.img_box_width {
+			width: 150px;
+			border: 5px solid #fff;
+			box-sizing: border-box;
+			height: 150px;
+			display: table-cell;
+    		vertical-align: middle;
+		}
+		.magnify_box{
+			width: 600px;
+			height: 420px;
+    		background: #fff;
+    		vertical-align: middle;
+    		text-align: center;
+		}
+		.magnify{
+			display: inline-block;
+		}
+		/*模块样式*/
+	
+	</style>
+</head>
+<body>
+	<div class="htmleaf-content">
+        <div class="magnify_box"><div class="magnify">
+	            <!-- This is the magnifying glass which will contain the original/large version -->
+	            <div class="js_large large"></div>
+	            <!-- This is the small image -->
+	            <img class="js_small md_img small"/>
+	        </div></div>
+        <div class="img_box clearfix">
+        	<div class="table-row">
+        		<div class="img_box_width">	
+        			<img data-big="img/big1.jpg" src="img/small1.jpg" alt="">
+        		</div>
+        	</div>
+	        <div class="table-row">
+	        	<div class="img_box_width">	
+	        		<img data-big="img/big2.jpg" src="img/small2.jpg" alt="">
+	        	</div>
+	        </div>
+	        <div class="table-row">
+	        	<div class="img_box_width">	
+	        		<img data-big="img/big3.jpg" src="img/small3.jpg" alt="">
+	        	</div>
+	        </div>
+	        <div class="table-row">
+	        	<div class="img_box_width">	
+	        		<img data-big="img/big4.jpg" src="img/small4.jpg" alt="">
+	        	</div>
+	        </div>
+        </div>
+	</div>
+</body>
+<script>
+	$(function(){
+
+		// 注意:
+		// 如需修改：请根据zoom_function一起修改
+
+		// 以下代码只是处理点击切换图片
+		$(".img_box img").click(function(){
+			$(".small").attr("src",$(this).attr("src"));
+			$(".small").attr("data-big",$(this).attr("data-big"));
+			$(".large").css("background","url('"+$(this).attr("data-big")+"') no-repeat");
+			zoom();
+	        zoom_function();
+		})
+		$(".img_box img:eq(0)").click()
+	})
+</script>
+</html>
